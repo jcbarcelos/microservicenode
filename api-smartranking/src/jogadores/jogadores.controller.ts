@@ -9,6 +9,7 @@ export class JogadoresController {
   @Post()
   async criarAtualizarJogadores(@Body() criarJogadorDto: CriarJogadorDto) {
     const {_id, email, telefoneCelular, name } = criarJogadorDto;
+    
     return this.jogadoresService.criarAtualizarJogador({
       _id,
       email,
