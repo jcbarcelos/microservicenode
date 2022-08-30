@@ -5,6 +5,7 @@ import { Jogadores } from './interfaces/jogadores.interface';
 import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class JogadoresService {
+  [x: string]: any;
   private jogadores: Jogadores[] = [];
   private readonly logger = new Logger(JogadoresService.name);
 
@@ -31,5 +32,9 @@ export class JogadoresService {
     };
     this.jogadores.push(jogadores);
     this.logger.log(`Criar Jogador dto: ${JSON.stringify(jogadores)}`);
+  }
+
+  async getCriarJogadoresAll(): Promise<Jogadores[]> {
+    return await this.jogadores;
   }
 }
