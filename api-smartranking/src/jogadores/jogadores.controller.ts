@@ -6,16 +6,21 @@ import {
   Logger,
   Post,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criarJogadorDto';
 import { JogadoresService } from './jogadores.service';
 import { Jogadores } from './interfaces/jogadores.interface';
+import { JogadorValidationParamentrosPipe } from './pipes/jogdores-validacao-paramentros-pipe';
 require('dotenv').config();
 @Controller('api/v1/jogadores')
 export class JogadoresController {
   private readonly logger = new Logger(JogadoresController.name);
   constructor(private readonly jogadoresService: JogadoresService) {}
+
   @Post()
+  @UsePipes(ValidationPipe)
   async criarAtualizarJogadores(@Body() criarJogadorDto: CriarJogadorDto) {
     const { email, telefoneCelular, name } = criarJogadorDto;
 
@@ -30,13 +35,13 @@ export class JogadoresController {
   async consultaJogador(
     @Query('email') email: string,
   ): Promise<Jogadores[] | Jogadores> {
-    this.logger.log(`email search: ${JSON.stringify(email)}`);
     if (email) return await this.jogadoresService.consultaJogador(email);
+    this.logger.log(`email search: ${JSON.stringify(email)}`);
     return this.jogadoresService.getJogadoresAll();
   }
 
   @Delete()
-  async deleteJogador(@Query('email') email: string): Promise<void> {
+  async deleteJogador(@Query('email', JogadorValidationParamentrosPipe) email: string): Promise<void> {
     this.logger.log(`email delete: ${JSON.stringify(email)}`);
     this.jogadoresService.deleteJogador(email);
   }

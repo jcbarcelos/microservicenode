@@ -43,9 +43,9 @@ export class JogadoresService {
       .exec();
   }
 
-  async deleteJogador(email: string): Promise<Jogadores> {
+  async deleteJogador(email: string): Promise<any> {
     this.logger.log(`Deleting ${JSON.stringify(email)}`);
-    return await this.jogadorModel.remove({ email }).exec();
+    return await this.jogadorModel.deleteOne({ email }).exec();
   }
 
   async getJogadoresAll(): Promise<Jogadores[]> {
