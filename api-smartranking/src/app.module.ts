@@ -6,12 +6,7 @@ require('dotenv').config();
 @Module({
   imports: [
     JogadoresModule,
-    MongooseModule.forRoot(`'${process.env.MONGODB}'`, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    }),
+    MongooseModule.forRoot(process.env.MONGODB),
   ],
   controllers: [],
   providers: [],

@@ -10,17 +10,19 @@ import {
 import { CriarJogadorDto } from './dtos/criarJogadorDto';
 import { JogadoresService } from './jogadores.service';
 import { Jogadores } from './interfaces/jogadores.interface';
-
+require('dotenv').config();
 @Controller('api/v1/jogadores')
 export class JogadoresController {
   private readonly logger = new Logger(JogadoresController.name);
-  constructor(private readonly jogadoresService: JogadoresService) {}
+  constructor(private readonly jogadoresService: JogadoresService) {
+    
+    this.logger.log(`mongoose: ${process.env.MONGODB}`);
+  }
   @Post()
   async criarAtualizarJogadores(@Body() criarJogadorDto: CriarJogadorDto) {
-    const { _id, email, telefoneCelular, name } = criarJogadorDto;
+    const { email, telefoneCelular, name } = criarJogadorDto;
 
     return this.jogadoresService.criarAtualizarJogador({
-      _id,
       email,
       telefoneCelular,
       name,
@@ -33,7 +35,7 @@ export class JogadoresController {
   ): Promise<Jogadores[] | Jogadores> {
     this.logger.log(`email search: ${JSON.stringify(email)}`);
     if (email) return await this.jogadoresService.consultaJogador(email);
-    return this.jogadoresService.getCriarJogadoresAll();
+    return this.jogadoresService.getJogadoresAll();
   }
 
   @Delete()
