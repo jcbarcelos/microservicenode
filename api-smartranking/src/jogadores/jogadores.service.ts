@@ -7,47 +7,33 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class JogadoresService {
-  private jogadores: Jogadores[] = [];
-
   constructor(
     @InjectModel('Jogadores') private readonly jogadorModel: Model<Jogadores>,
   ) {}
 
   private readonly logger = new Logger(JogadoresService.name);
 
-  async criarAtualizarJogador(criarJodadorDto: CriarJogadorDto) {
-    const { email } = criarJodadorDto;
-    const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
-
-    if (!jogadorEncontrado) {
-      return await this.criarJogador(criarJodadorDto);
-    }
-    return await this.atualizarJogador(criarJodadorDto);
-  }
-
-  private criarJogador(criarJodadorDto: CriarJogadorDto): Promise<Jogadores> {
+  criarJogador(criarJodadorDto: CriarJogadorDto): Promise<Jogadores> {
     const jogadorCriar = new this.jogadorModel(criarJodadorDto);
     this.logger.log(`Criar Jogador dto: ${JSON.stringify(jogadorCriar)}`);
     return jogadorCriar.save();
   }
 
-  private async atualizarJogador(
+  async atualizarJogador(
+    _id: string,
     criarJodadorDto: CriarJogadorDto,
-  ): Promise<Jogadores> {
+  ): Promise<void> {
     this.logger.log(
       `Atualizar Jogador dto: ${JSON.stringify(criarJodadorDto)}`,
     );
-    return await this.jogadorModel
-      .findOneAndUpdate(
-        { email: criarJodadorDto.email },
-        { $set: criarJodadorDto },
-      )
+    await this.jogadorModel
+      .updateOne({ _id }, { $set: criarJodadorDto })
       .exec();
   }
 
-  async deleteJogador(email: string): Promise<any> {
-    this.logger.log(`Deleting ${JSON.stringify(email)}`);
-    return await this.jogadorModel.deleteOne({ email }).exec();
+  async deleteJogador(_id: string): Promise<any> {
+    this.logger.log(`Deleting ${JSON.stringify(_id)}`);
+    return await this.jogadorModel.deleteOne({ _id }).exec();
   }
 
   async getJogadoresAll(): Promise<Jogadores[]> {
@@ -65,9 +51,7 @@ export class JogadoresService {
   async consultaJogadorId(_id: string): Promise<Jogadores> {
     const jogadorEncontrado = await this.jogadorModel.findById({ _id }).exec();
     if (!jogadorEncontrado)
-      throw new NotFoundException(
-        `Jogador com _id  ${_id} não encontrado  `,
-      );
+      throw new NotFoundException(`Jogador com _id  ${_id} não encontrado  `);
     return jogadorEncontrado;
   }
 }
