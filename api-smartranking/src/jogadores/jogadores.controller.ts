@@ -14,10 +14,7 @@ require('dotenv').config();
 @Controller('api/v1/jogadores')
 export class JogadoresController {
   private readonly logger = new Logger(JogadoresController.name);
-  constructor(private readonly jogadoresService: JogadoresService) {
-    
-    this.logger.log(`mongoose: ${process.env.MONGODB}`);
-  }
+  constructor(private readonly jogadoresService: JogadoresService) {}
   @Post()
   async criarAtualizarJogadores(@Body() criarJogadorDto: CriarJogadorDto) {
     const { email, telefoneCelular, name } = criarJogadorDto;
