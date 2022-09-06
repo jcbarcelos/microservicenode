@@ -17,10 +17,9 @@ export class JogadoresController {
   constructor(private readonly jogadoresService: JogadoresService) {}
   @Post()
   async criarAtualizarJogadores(@Body() criarJogadorDto: CriarJogadorDto) {
-    const { _id, email, telefoneCelular, name } = criarJogadorDto;
+    const { email, telefoneCelular, name } = criarJogadorDto;
 
     return this.jogadoresService.criarAtualizarJogador({
-      _id,
       email,
       telefoneCelular,
       name,
@@ -33,7 +32,7 @@ export class JogadoresController {
   ): Promise<Jogadores[] | Jogadores> {
     this.logger.log(`email search: ${JSON.stringify(email)}`);
     if (email) return await this.jogadoresService.consultaJogador(email);
-    return this.jogadoresService.getCriarJogadoresAll();
+    return this.jogadoresService.getJogadoresAll();
   }
 
   @Delete()

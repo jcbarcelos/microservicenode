@@ -6,12 +6,9 @@ require('dotenv').config();
 @Module({
   imports: [
     JogadoresModule,
-    MongooseModule.forRoot(`'${process.env.MONGODB}'`, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://api-smartranking:2IG9BH97W8JFLSEV@cluster0.pk3g04c.mongodb.net/smartranking?retryWrites=true&w=majority',
+    ),
   ],
   controllers: [],
   providers: [],
