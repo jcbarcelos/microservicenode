@@ -34,7 +34,9 @@ export class JogadoresService {
   private async atualizarJogador(
     criarJodadorDto: CriarJogadorDto,
   ): Promise<Jogadores> {
-    this.logger.log(`Atualizar Jogador dto: ${JSON.stringify(criarJodadorDto)}`);
+    this.logger.log(
+      `Atualizar Jogador dto: ${JSON.stringify(criarJodadorDto)}`,
+    );
     return await this.jogadorModel
       .findOneAndUpdate(
         { email: criarJodadorDto.email },
@@ -57,6 +59,14 @@ export class JogadoresService {
     if (!jogadorEncontrado)
       throw new NotFoundException(
         `Jogador com e-mail  ${email} não encontrado  `,
+      );
+    return jogadorEncontrado;
+  }
+  async consultaJogadorId(_id: string): Promise<Jogadores> {
+    const jogadorEncontrado = await this.jogadorModel.findById({ _id }).exec();
+    if (!jogadorEncontrado)
+      throw new NotFoundException(
+        `Jogador com _id  ${_id} não encontrado  `,
       );
     return jogadorEncontrado;
   }
