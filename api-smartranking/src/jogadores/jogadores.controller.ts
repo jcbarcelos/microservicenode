@@ -7,7 +7,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -27,8 +26,7 @@ export class JogadoresController {
     @Body(JogadorValidationParamentrosPipe) criarJogadorDto: CriarJogadorDto,
   ) {
     const { email, telefoneCelular, name } = criarJogadorDto;
-
-    return this.jogadoresService.criarJogador({
+    return await this.jogadoresService.criarJogador({
       email,
       telefoneCelular,
       name,
