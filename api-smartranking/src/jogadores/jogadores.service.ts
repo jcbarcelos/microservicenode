@@ -13,7 +13,6 @@ export class JogadoresService {
   ) {}
 
   private readonly logger = new Logger(JogadoresService.name);
-  private readonly validateEmailExistePipe: JogadorValidationEmailPipe;
 
   async criarJogador(criarJodadorDto: CriarJogadorDto): Promise<Jogadores> {
     const jogadorCriar = new this.jogadorModel(criarJodadorDto);
