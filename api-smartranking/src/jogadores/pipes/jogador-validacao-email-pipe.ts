@@ -1,7 +1,8 @@
-import { Jogadores } from '../../../dist/jogadores/jogadores.interface.d';
+
 import { Model } from 'mongoose';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Jogadores } from 'src/jogadores/interfaces/jogadores.interface';
 
 @Injectable()
 export class JogadorValidationEmailPipe {

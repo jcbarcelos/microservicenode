@@ -8,13 +8,13 @@ export const CategoriaSchema = new mongoose.Schema(
       {
         nome: { type: String },
         operacao: { type: String },
-        valor: { type: Number },
+        valor: { type: Number }
       },
     ],
     jogadores: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Jogadores',
+        ref: 'jogadores',
       },
     ],
   },

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CategoriaDtoNew } from './dtos/categoria.dto.new';
 import { Categorias } from './categorias.interface';
 import { CategoriasService } from './categorias.service';
@@ -8,13 +16,21 @@ export class CategoriasController {
   constructor(private readonly categoriasService: CategoriasService) {}
 
   @Get()
-  async listaCAtegorias(): Promise<Categorias> {
+  async listaCategorias(): Promise<Categorias> {
     return await this.categoriasService.listaCategorias();
   }
   @Post()
+  @UsePipes(ValidationPipe)
   async criarCategorias(
     @Body() categoriaDtoNew: CategoriaDtoNew,
   ): Promise<Categorias> {
     return await this.categoriasService.criarCategoria(categoriaDtoNew);
+  }
+
+  @Get('/:categoria')
+  async consultaCatergoria(
+    @Param('categoria') categoria: string,
+  ): Promise<Categorias> {
+    return await this.categoriasService.consultaTodasCategorias(categoria);
   }
 }

@@ -1,5 +1,4 @@
-FROM node
+FROM node:alpine
 WORKDIR /code
-COPY . .
 RUN npm install
 EXPOSE 8001

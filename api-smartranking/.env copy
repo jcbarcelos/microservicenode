@@ -1,1 +1,2 @@
-MONGODB=seu endereco do mongo
+MONGODB=mongodb+srv://<username>:<password>@cluster0.pk3g04c.mongodb.net/?retryWrites=true&w=majority
+PORT=8001
