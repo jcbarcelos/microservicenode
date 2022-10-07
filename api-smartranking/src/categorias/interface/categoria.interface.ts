@@ -1,4 +1,5 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
+import { Eventos } from './eventos.interface';
 import { Jogadores } from '../../jogadores/interfaces/jogadores.interface';
 
 export interface Categorias extends Document {
@@ -7,10 +8,4 @@ export interface Categorias extends Document {
   description: string;
   eventos: Array<Eventos>;
   jogadores?: Array<Jogadores>;
-}
-
-export interface Eventos{
-  nome: string;
-  operacao: string;
-  valor: number;
 }

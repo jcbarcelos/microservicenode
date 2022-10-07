@@ -5,16 +5,15 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Eventos } from '../interface/eventos.interface';
+import { Jogadores } from 'src/jogadores/interfaces/jogadores.interface';
 
-export class CategoriaDtoUpdate {
-
+export class CategoriaDtoUpdateJogadores {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  description: string;
+  id_: string;
 
   @IsArray()
   @ArrayMinSize(1)
-  eventos: Array<Eventos>;
+  jogadores: Array<Jogadores>;
 }

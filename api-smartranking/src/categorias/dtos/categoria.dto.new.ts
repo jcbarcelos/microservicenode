@@ -1,6 +1,6 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { ArrayMinSize, IsArray,  IsNotEmpty, IsString } from 'class-validator';
 import { Jogadores } from 'src/jogadores/interfaces/jogadores.interface';
-import { Eventos } from '../interface/categoria.interface';
+import { Eventos } from '../interface/eventos.interface';
 
 export class CategoriaDtoNew {
   @IsString()
@@ -11,9 +11,8 @@ export class CategoriaDtoNew {
   @IsNotEmpty()
   description: string;
 
-  @IsArray()
-  @ArrayMinSize(1)
-  jogadores: Array<Jogadores>;
+
+  jogadores: Jogadores;
 
   @IsArray()
   @ArrayMinSize(1)

@@ -1,2 +1,3 @@
 MONGODB=mongodb+srv://<username>:<password>@cluster0.pk3g04c.mongodb.net/?retryWrites=true&w=majority
 PORT=8001
+HOST_API_V1=api/v1/

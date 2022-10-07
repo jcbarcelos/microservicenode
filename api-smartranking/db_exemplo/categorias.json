@@ -1,11 +1,6 @@
 {
     "categoria": "B",
     "description": "Categoria B",
-    "jogadores": [
-        {
-            "_id": "633de478f3f9da8b6ae96cac"
-        }
-    ],
     "eventos": [
         {
             "nome": "VITORIA",

@@ -13,7 +13,7 @@ import {
 import { CriarJogadorDto } from './dtos/criarJogadorDto';
 import { JogadoresService } from './jogadores.service';
 import { Jogadores } from './interfaces/jogadores.interface';
-import { JogadorValidationParamentrosPipe } from './pipes/jogdores-validacao-paramentros-pipe';
+import { ValidationParamentrosPipe } from '../common/pipes/validacao-paramentros-pipe';
 require('dotenv').config();
 @Controller('api/v1/jogadores')
 export class JogadoresController {
@@ -23,7 +23,7 @@ export class JogadoresController {
   @Post()
   @UsePipes(ValidationPipe)
   async criarJogadores(
-    @Body(JogadorValidationParamentrosPipe) criarJogadorDto: CriarJogadorDto,
+    @Body(ValidationParamentrosPipe) criarJogadorDto: CriarJogadorDto,
   ) {
     const { email, telefoneCelular, name } = criarJogadorDto;
     return await this.jogadoresService.criarJogador({
@@ -35,8 +35,8 @@ export class JogadoresController {
   @Put('/:_id')
   @UsePipes(ValidationPipe)
   async atualizarJogadores(
-    @Param('_id', JogadorValidationParamentrosPipe) _id: string,
-    @Body(JogadorValidationParamentrosPipe) criarJogadorDto: CriarJogadorDto,
+    @Param('_id', ValidationParamentrosPipe) _id: string,
+    @Body(ValidationParamentrosPipe) criarJogadorDto: CriarJogadorDto,
   ) {
     return this.jogadoresService.atualizarJogador(_id, criarJogadorDto);
   }
@@ -47,7 +47,7 @@ export class JogadoresController {
   }
   @Get('/:_id')
   async consultaJogadorId(
-    @Param('_id', JogadorValidationParamentrosPipe) _id: string,
+    @Param('_id', ValidationParamentrosPipe) _id: string,
   ): Promise<Jogadores> {
     this.logger.log(`_id search: ${JSON.stringify(_id)}`);
     return await this.jogadoresService.consultaJogadorId(_id);
@@ -55,7 +55,7 @@ export class JogadoresController {
 
   @Delete('/:_id')
   async deleteJogador(
-    @Param('_id', JogadorValidationParamentrosPipe) _id: string,
+    @Param('_id', ValidationParamentrosPipe) _id: string,
   ): Promise<void> {
     this.logger.log(`_id delete: ${JSON.stringify(_id)}`);
     this.jogadoresService.deleteJogador(_id);

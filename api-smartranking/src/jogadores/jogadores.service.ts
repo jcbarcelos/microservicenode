@@ -3,13 +3,11 @@ import { CriarJogadorDto } from './dtos/criarJogadorDto';
 import { Jogadores } from './interfaces/jogadores.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { JogadorValidationEmailPipe } from './pipes/jogador-validacao-email-pipe';
 
 @Injectable()
 export class JogadoresService {
   constructor(
     @InjectModel('Jogadores') private readonly jogadorModel: Model<Jogadores>,
- 
   ) {}
 
   private readonly logger = new Logger(JogadoresService.name);
@@ -63,7 +61,9 @@ export class JogadoresService {
     return jogadorEncontrado;
   }
   async validateTelefoneExiste(telefoneCelular: string): Promise<Jogadores> {
-    const jogadorEncontrado = await this.jogadorModel.findOne({ telefoneCelular }).exec();
+    const jogadorEncontrado = await this.jogadorModel
+      .findOne({ telefoneCelular })
+      .exec();
     if (jogadorEncontrado)
       throw new NotFoundException(
         `Jogador com telefoneCelular ${telefoneCelular} já encontrado  `,
